@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard_pro.css' %}">
+
+<div class="pro-container">
+    <header class="dashboard-header mb-5">
+        <div class="header-main">
+            <h1 class="pro-welcome-title">Welcome back, <span class="accent-text">{{ user.username }}</span></h1>
+            <div class="status-strip">
+                <span class="badge-role">{{ role|upper }} NODE</span>
+                <span class="connection-status">
+                    <span class="pulse-dot"></span> SECURE CONNECTION
+                </span>
+            </div>
+        </div>
+        {% if user.is_staff %}
+        <div class="header-actions">
+            <a href="/admin/" class="btn-pro-outline">System Database</a>
+        </div>
+        {% endif %}
+    </header>
+
+    {% if user.is_staff %}
+    <section class="kpi-grid mb-5">
+        <div class="kpi-card">
+            <span class="kpi-label">Platform Throughput</span>
+            <h2 class="kpi-value">{{ total_rides }} <small class="unit">Rides</small></h2>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Verified Fleet</span>
+            <h2 class="kpi-value">{{ active_drivers }} <small class="unit">Drivers</small></h2>
+        </div>
+        <div class="kpi-card dark-card">
+            <span class="kpi-label">Network Status</span>
+            <h2 class="kpi-value status-glow">Operational</h2>
+        </div>
+    </section>
+
+    <section class="approval-section mb-5">
+        <div class="section-header">
+            <h3 class="section-title">Pending Authorizations</h3>
+            <span class="live-indicator">AUDIT REQUIRED</span>
+        </div>
+        <div class="pro-table-wrapper">
+            <table class="pro-table">
+                <thead>
+                    <tr>
+                        <th>ENTITY NAME</th>
+                        <th>COMMUNICATION</th>
+                        <th>ROLE TYPE</th>
+                        <th>VALIDATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pending in pending_drivers %}
+                    <tr>
+                        <td class="fw-bold">{{ pending.username }}</td>
+                        <td class="text-muted">{{ pending.phone }}</td>
+                        <td><span class="text-orange fw-bold">DRIVER_TRIAL</span></td>
+                        <td>
+                            <a href="{% url 'approve_driver' pending.id %}" class="btn-approve">Authorize</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="empty-state">No pending registrations detected.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    {% endif %}
+
+    <div class="portal-grid">
+        
+        {% if user.is_rider or user.is_staff %}
+        <div class="portal-card">
+            <div class="portal-body">
+                <h3 class="portal-title">Rider Console</h3>
+                <p class="portal-desc">Initiate new logistics requests and view telemetry for active trips.</p>
+                
+                <a href="{% url 'request_ride' %}" class="btn-interactive-ride">
+                    <div class="btn-content">
+                        <span class="icon">+</span>
+                        <span class="text">Book a New Ride</span>
+                    </div>
+                    <div class="btn-shine"></div>
+                </a>
+                
+                {% if recent_ride %}
+                <div class="status-box mt-4">
+                    <small>LAST REQUEST</small>
+                    <div class="d-flex justify-content-between align-items-center mt-1">
+                        <span class="badge-status">{{ recent_ride.get_status_display }}</span>
+                        <a href="{% url 'ride_status' recent_ride.id %}" class="link-track">Track Node →</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if user.is_driver or user.is_staff %}
+        <div class="portal-card">
+            <div class="portal-body">
+                <h3 class="portal-title">Fleet Operations</h3>
+                <p class="portal-desc">Monitor available assignments and manage your active earnings.</p>
+                <a href="{% url 'active_trips' %}" class="btn-pro-solid">Enter Jobs Console</a>
+                
+                {% if active_trip %}
+                <div class="status-box mt-4 dark-box">
+                    <small>ACTIVE ASSIGNMENT</small>
+                    <div class="d-flex justify-content-between align-items-center mt-1">
+                        <p class="mb-0 fw-bold">{{ active_trip.drop_location|truncatechars:15 }}</p>
+                        <a href="{% url 'ride_status' active_trip.id %}" class="btn-manage-pill">Manage</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

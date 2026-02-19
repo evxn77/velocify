@@ -1,0 +1,134 @@
+/* searching.css - High Fidelity Radar Theme */
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 85vh;
+    padding: 20px;
+}
+
+/* Radar Animation Logic */
+.radar-box {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #ff6b00;
+    border-radius: 50%;
+    animation: radar-pulse 4s cubic-bezier(0.21, 0.53, 0.56, 0.8) infinite;
+    opacity: 0;
+}
+
+.ring-2 { animation-delay: 1s; }
+.ring-3 { animation-delay: 2s; }
+
+.radar-core {
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.core-glow {
+    width: 14px;
+    height: 14px;
+    background: #ff6b00;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #ff6b00;
+    animation: core-heartbeat 1.5s infinite alternate;
+}
+
+@keyframes radar-pulse {
+    0% { transform: scale(0.1); opacity: 0; }
+    10% { opacity: 0.6; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes core-heartbeat {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(1.4); opacity: 0.7; }
+}
+
+/* Typography & Headers */
+.search-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.search-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #000;
+    letter-spacing: -0.05em;
+}
+
+.accent-text {
+    background: linear-gradient(135deg, #ff6b00 0%, #ff3b30 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.search-subtitle {
+    color: #6e6e73;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Logistics Card Alignment */
+.logistics-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.label { font-size: 0.7rem; font-weight: 800; color: #86868b; letter-spacing: 0.1em; }
+.value { font-size: 1.8rem; font-weight: 800; color: #000; }
+
+.path-visual { display: flex; gap: 20px; }
+.path-markers { display: flex; flex-direction: column; align-items: center; }
+
+.marker-top { width: 10px; height: 10px; border: 2.5px solid #000; border-radius: 50%; }
+.marker-line { width: 2px; height: 50px; background: #e5e5e7; margin: 5px 0; }
+.marker-bottom { width: 10px; height: 10px; background: #ff6b00; border-radius: 2px; }
+
+.detail-item small { display: block; font-size: 0.65rem; font-weight: 700; color: #86868b; margin-bottom: 4px; }
+.detail-item p { font-weight: 700; font-size: 1.05rem; margin-bottom: 15px; }
+
+.safety-tag {
+    margin-top: 30px;
+    background: #f5f5f7;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1d1d1f;
+}

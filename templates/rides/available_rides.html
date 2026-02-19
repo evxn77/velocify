@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Available Ride Requests</h2>
+
+<div class="row">
+    {% for ride in rides %}
+    <div class="col-md-4 mb-3">
+        <div class="card border-primary shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-primary">{{ ride.vehicle_type|capfirst }} Request</h5>
+                <p class="card-text">
+                    <strong>From:</strong> {{ ride.pickup_location }}<br>
+                    <strong>To:</strong> {{ ride.drop_location }}<br>
+                    <strong>Fare:</strong> ₹{{ ride.estimated_fare }}
+                </p>
+                <a href="{% url 'accept_ride' ride.id %}" class="btn btn-success w-100">Accept Ride</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">No pending rides at the moment. Check back soon!</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

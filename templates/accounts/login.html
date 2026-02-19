@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+
+<div class="auth-container">
+    <div class="apple-card auth-card">
+        <header class="text-center mb-4">
+            <div class="auth-icon-circle mb-3">
+                <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <h2 class="auth-title">Welcome <span class="accent-text">Back</span></h2>
+            <p class="auth-subtitle">Sign in to access your Velocify dashboard.</p>
+        </header>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} border-0 small rounded-4 shadow-sm py-3 mb-4">
+                    <i class="bi bi-info-circle-fill me-2"></i> {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-muted text-uppercase tracking-wider">Username</label>
+                <div class="input-group-pro">
+                    <input type="text" name="username" class="pro-input" placeholder="e.g. user123" required>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label class="form-label small fw-bold text-muted text-uppercase tracking-wider mb-0">Password</label>
+                    <a href="{% url 'password_reset' %}" class="forgot-link">Forgot password?</a>
+                </div>
+                <div class="input-group-pro">
+                    <input type="password" name="password" class="pro-input" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <div class="mb-4 d-flex align-items-center">
+                <input type="checkbox" id="remember" class="form-check-input me-2">
+                <label for="remember" class="text-muted small" style="cursor: pointer;">Remember this session</label>
+            </div>
+            
+            <button type="submit" class="btn-pro-solid w-100 py-3">
+                <span>Sign In to Console</span>
+                <i class="bi bi-arrow-right-short ms-2"></i>
+            </button>
+        </form>
+        
+        <footer class="mt-4 text-center border-top pt-4">
+            <p class="text-muted small mb-0">
+                New to the fleet? 
+                <a href="{% url 'signup' %}" class="text-dark fw-bold text-decoration-none hover-orange ms-1">
+                    Create an Account
+                </a>
+            </p>
+        </footer>
+    </div>
+</div>
+
+<style>
+    /* Inline additions to match your Titanium theme if not in auth.css */
+    .forgot-link {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #86868b;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    .forgot-link:hover {
+        color: #ff6b00; /* Velocify Accent Color */
+    }
+    .auth-icon-circle {
+        width: 60px;
+        height: 60px;
+        background: #f5f5f7;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        font-size: 1.5rem;
+        color: #1d1d1f;
+    }
+    .hover-orange:hover {
+        color: #ff6b00 !important;
+    }
+    .tracking-wider {
+        letter-spacing: 0.05em;
+    }
+</style>
+{% endblock %}

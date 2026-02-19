@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/status_pro.css' %}">
+
+<div class="status-container">
+    <header class="status-header mb-5">
+        <h1 class="pro-title">Trip <span class="accent-text">Telemetry</span></h1>
+        <div class="d-flex align-items-center gap-3">
+            <p class="text-muted mb-0">ID: <span class="fw-bold text-dark">#VEL-{{ ride.id }}TRX</span></p>
+            <span class="badge-live">{{ ride.get_status_display|upper }}</span>
+        </div>
+    </header>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="map-placeholder">
+                <div class="route-info-overlay">
+                    <div class="location-group">
+                        <div class="loc-item">
+                            <span class="dot origin"></span>
+                            <div>
+                                <small>PICKUP POINT</small>
+                                <p>{{ ride.pickup_location }}</p>
+                            </div>
+                        </div>
+                        <div class="path-line"></div>
+                        <div class="loc-item">
+                            <span class="dot destination"></span>
+                            <div>
+                                <small>DESTINATION</small>
+                                <p>{{ ride.drop_location }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-grid-bg">
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle delay-1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="info-card">
+                <h4 class="section-label mb-4">LOGISTICS SUMMARY</h4>
+                
+                <div class="detail-row">
+                    <span class="label">Est. Fare</span>
+                    <span class="value fare-text">₹{{ ride.estimated_fare }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="label">{% if request.user.id == ride.rider.id %}Driver{% else %}Rider{% endif %}</span>
+                    <span class="value">
+                        {% if request.user.id == ride.rider.id %}
+                            {{ ride.driver.username|default:"Searching..." }}
+                        {% else %}
+                            {{ ride.rider.username }}
+                        {% endif %}
+                    </span>
+                </div>
+
+                <hr class="divider">
+
+                <div class="action-zone">
+                    {% if request.user.id == ride.driver.id %}
+                        <div class="driver-controls">
+                            {% if ride.status == 'accepted' %}
+                                <form action="{% url 'update_ride_status' ride.id %}" method="POST" class="animate-in">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-command btn-pickup-mode">
+                                        <div class="btn-content">
+                                            <span class="btn-main-text">Confirm Pickup</span>
+                                            <span class="btn-sub-text">Rider is at location</span>
+                                        </div>
+                                        <span class="icon-circle">🚗</span>
+                                    </button>
+                                </form>
+
+                            {% elif ride.status == 'picked_up' %}
+                                <form action="{% url 'update_ride_status' ride.id %}" method="POST" class="animate-in">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-command btn-reached-mode">
+                                        <div class="btn-content">
+                                            <span class="btn-main-text">End Trip</span>
+                                            <span class="btn-sub-text">Reached destination</span>
+                                        </div>
+                                        <span class="icon-circle">📍</span>
+                                    </button>
+                                </form>
+
+                            {% elif ride.status == 'reached_destination' %}
+                                <div class="fare-card-ui animate-in">
+                                    <div class="fare-header">
+                                        <div class="pulse-icon"></div>
+                                        <h5 class="mb-0">Finalize Billing</h5>
+                                    </div>
+                                    <form action="{% url 'update_ride_status' ride.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="input-wrapper mb-3">
+                                            <span class="currency-symbol">₹</span>
+                                            <input type="number" step="0.01" name="final_fare" class="fare-field" placeholder="0.00" required autofocus>
+                                        </div>
+                                        <button type="submit" class="btn-finalize">Complete & Bill</button>
+                                    </form>
+                                </div>
+
+                            {% elif ride.status == 'completed' %}
+                                <div class="success-wrap text-center animate-in">
+                                    <div class="icon-success">✓</div>
+                                    <h4 class="fw-bold">Earned: ₹{{ ride.amount }}</h4>
+                                    <a href="{% url 'ride_invoice' ride.id %}" class="btn-receipt-link">View Detailed Receipt</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="rider-tracking">
+                            <p class="small text-muted mb-2 text-uppercase fw-bold">Live Progress</p>
+                            <div class="progress-bar-minimal">
+                                <div class="progress-fill {{ ride.status }}"></div>
+                            </div>
+                            <ul class="progress-labels">
+                                <li class="{% if ride.status != 'pending' %}active{% endif %}">Match</li>
+                                <li class="{% if ride.status == 'picked_up' or ride.status == 'reached_destination' or ride.status == 'completed' %}active{% endif %}">Transit</li>
+                                <li class="{% if ride.status == 'completed' %}active{% endif %}">Arrival</li>
+                            </ul>
+                            {% if ride.status == 'completed' %}
+                                <a href="{% url 'ride_invoice' ride.id %}" class="btn-receipt-link w-100 mt-4 text-center d-block">Download Receipt</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

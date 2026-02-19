@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-end mb-5">
+        <div>
+            <h1 class="pro-title">Available <span class="accent-text">Orders</span></h1>
+            <p class="text-muted">Select a request to begin navigation.</p>
+        </div>
+        <span class="live-indicator">SCANNING...</span>
+    </div>
+
+    <div class="row g-4">
+        {% for ride in rides %}
+        <div class="col-md-6 col-lg-4">
+            <div class="apple-card">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="badge bg-dark px-3">NEW REQUEST</span>
+                    <span class="fw-bold text-success">₹{{ ride.estimated_fare }}</span>
+                </div>
+                
+                <div class="mb-2">
+                    <small class="text-muted d-block">FROM</small>
+                    <span class="fw-bold">{{ ride.pickup_location }}</span>
+                </div>
+                <div class="mb-4">
+                    <small class="text-muted d-block">TO</small>
+                    <span class="fw-bold text-dark">{{ ride.drop_location }}</span>
+                </div>
+
+                <a href="{% url 'accept_ride' ride.id %}" class="btn-pro-exit w-100 text-center text-decoration-none d-block py-2">
+                    Accept Ride
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <h3 class="text-muted">No pending requests in your area.</h3>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

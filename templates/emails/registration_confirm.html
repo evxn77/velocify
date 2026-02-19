@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .email-card { font-family: sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 20px; padding: 40px; }
+        .header { font-weight: 800; font-size: 24px; color: #000; }
+        .status-badge { background: #30d158; color: white; padding: 5px 15px; border-radius: 10px; font-size: 12px; display: inline-block; }
+        .footer { margin-top: 30px; font-size: 12px; color: #86868b; }
+    </style>
+</head>
+<body>
+    <div class="email-card">
+        <div class="header">VELOCIFY<span style="color:#ff6b00">.</span></div>
+        <h1>Welcome, {{ username }}!</h1>
+        <p>Your registration as a <strong>{{ role }}</strong> is confirmed.</p>
+        
+        {% if role == 'Driver' %}
+        <p class="status-badge">PENDING ADMIN APPROVAL</p>
+        <p>Our fleet managers are reviewing your credentials. You will receive another notification once your "Fleet Console" is activated.</p>
+        {% else %}
+        <p>You can now start booking rides immediately via your dashboard.</p>
+        {% endif %}
+
+        <div class="footer">
+            &copy; 2026 Velocify Logistics Technologies. This is an automated transaction receipt.
+        </div>
+    </div>
+</body>
+</html>

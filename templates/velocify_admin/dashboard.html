@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/admin_pro.css' %}">
+
+<div class="pro-container">
+    <header class="pro-header">
+        <div class="header-content">
+            <h1 class="pro-title">System <span class="accent-text">Intelligence</span></h1>
+            <p class="pro-subtitle">Real-time platform telemetry and financial oversight.</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-pro-outline">Export Data</button>
+            <button class="btn-pro-solid">System Audit</button>
+        </div>
+    </header>
+
+    <section class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">Gross Platform Revenue</div>
+            <div class="kpi-value">₹{{ stats.total_revenue }}</div>
+            <div class="kpi-trend positive">↑ 14.2% Growth</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Completed Logistics</div>
+            <div class="kpi-value">{{ stats.total_rides }}</div>
+            <div class="kpi-trend">Active Operations</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Verified Driver Fleet</div>
+            <div class="kpi-value">{{ stats.active_drivers }}</div>
+            <div class="kpi-trend positive">98% Online Rate</div>
+        </div>
+        <div class="kpi-card dark-kpi">
+            <div class="kpi-label">Platform Status</div>
+            <div class="kpi-value status-glow">Operational</div>
+            <div class="kpi-trend">Core Services: Active</div>
+        </div>
+    </section>
+
+    <section class="data-section">
+        <div class="section-header">
+            <h2 class="section-title">Live Transaction Stream</h2>
+            <span class="live-indicator">LIVE UPDATES</span>
+        </div>
+        
+        <div class="pro-table-wrapper">
+            <table class="pro-table">
+                <thead>
+                    <tr>
+                        <th>RIDER ENTITY</th>
+                        <th>PICKUP LOGISTICS</th>
+                        <th>DESTINATION</th>
+                        <th>VALUATION</th>
+                        <th>TRANSACTION STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ride in recent_bookings %}
+                    <tr>
+                        <td class="user-cell">
+                            <div class="user-avatar">{{ ride.rider.username|slice:":1"|upper }}</div>
+                            <span class="username">{{ ride.rider.username }}</span>
+                        </td>
+                        <td>{{ ride.pickup_location }}</td>
+                        <td>{{ ride.drop_location }}</td>
+                        <td class="fare-text">₹{{ ride.estimated_fare }}</td>
+                        <td>
+                            <span class="pro-badge {% if ride.status == 'completed' %}badge-success{% else %}badge-active{% endif %}">
+                                {{ ride.status|upper }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-state">No active transaction records found in the database.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+{% endblock %}

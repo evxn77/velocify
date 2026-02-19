@@ -1,0 +1,210 @@
+/* admin_pro.css - Velocify High-Fidelity Theme */
+
+:root {
+    --pro-black: #000000;
+    --pro-white: #ffffff;
+    --titanium-gray: #f5f5f7;
+    --accent-orange: #ff6b00;
+    --accent-red: #ff3b30;
+    --accent-gradient: linear-gradient(135deg, #ff6b00 0%, #ff3b30 100%);
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --shadow-bold: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Global Reset & Alignment */
+.pro-container {
+    padding: 40px 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Header & Typography */
+.pro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 50px;
+}
+
+.pro-title {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: var(--pro-black);
+    margin: 0;
+}
+
+.accent-text {
+    background: var(--accent-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.pro-subtitle {
+    font-size: 1.1rem;
+    color: #6e6e73;
+    margin-top: 10px;
+}
+
+/* KPI Cards Layout */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.kpi-card {
+    background: var(--pro-white);
+    padding: 35px;
+    border-radius: 30px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-bold);
+}
+
+.dark-kpi {
+    background: var(--pro-black);
+    color: var(--pro-white);
+}
+
+.kpi-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #86868b;
+}
+
+.kpi-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 15px 0;
+}
+
+.status-glow {
+    color: #30d158;
+    text-shadow: 0 0 15px rgba(48, 209, 88, 0.4);
+}
+
+.kpi-trend {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.positive { color: #30d158; }
+
+/* Table Section Styling */
+.data-section {
+    background: var(--pro-white);
+    border-radius: 35px;
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.live-indicator {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 5px 12px;
+    border: 1.5px solid var(--accent-orange);
+    color: var(--accent-orange);
+    border-radius: 50px;
+}
+
+.pro-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.pro-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pro-table th {
+    text-align: left;
+    font-size: 0.75rem;
+    color: #86868b;
+    padding: 20px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.pro-table td {
+    padding: 25px 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #f9f9fb;
+}
+
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    background: var(--pro-black);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.fare-text {
+    color: var(--accent-red);
+    font-weight: 800;
+}
+
+/* Badges */
+.pro-badge {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.badge-success { background: rgba(48, 209, 88, 0.1); color: #248a3d; }
+.badge-active { background: rgba(0, 0, 0, 0.05); color: var(--pro-black); }
+
+/* Buttons */
+.btn-pro-solid {
+    background: var(--pro-black);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-pro-outline {
+    background: transparent;
+    border: 2px solid var(--pro-black);
+    color: var(--pro-black);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-right: 10px;
+}

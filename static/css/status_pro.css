@@ -1,0 +1,243 @@
+/* status_pro.css - Unified Titanium Logistics Theme v2.0 */
+
+.status-container { 
+    padding: 40px 20px; 
+    max-width: 1300px; 
+    margin: 0 auto; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.pro-title { 
+    font-weight: 800; 
+    letter-spacing: -0.04em; 
+    font-size: 2.8rem; 
+    margin-bottom: 5px;
+}
+
+.accent-text { color: #86868b; }
+
+/* --- Map & Telemetry Visualization --- */
+.map-placeholder {
+    height: 550px; 
+    background: #0b0b0b; 
+    border-radius: 35px;
+    position: relative; 
+    overflow: hidden; 
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+.map-grid-bg {
+    position: absolute; 
+    width: 100%; 
+    height: 100%;
+    background-image: radial-gradient(#333 1px, transparent 1px);
+    background-size: 40px 40px; 
+    opacity: 0.3;
+}
+
+.route-info-overlay {
+    position: absolute; 
+    top: 25px; 
+    left: 25px; 
+    right: 25px;
+    background: rgba(255, 255, 255, 0.9); 
+    backdrop-filter: blur(15px);
+    padding: 25px; 
+    border-radius: 25px; 
+    z-index: 10; 
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.location-group { display: flex; flex-direction: column; gap: 8px; }
+.loc-item { display: flex; align-items: flex-start; gap: 12px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; }
+.origin { background: #30d158; box-shadow: 0 0 12px #30d158; }
+.destination { background: #ff3b30; box-shadow: 0 0 12px #ff3b30; }
+.path-line { width: 2px; height: 25px; background: #eee; margin-left: 4px; }
+
+.loc-item small { font-size: 0.6rem; font-weight: 800; color: #86868b; display: block; letter-spacing: 0.05em; }
+.loc-item p { margin: 0; font-weight: 700; font-size: 0.95rem; color: #000; }
+
+/* --- Info Card & Action Zone --- */
+.info-card { 
+    background: #fff; 
+    padding: 40px; 
+    border-radius: 35px; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.04); 
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+}
+
+.section-label { font-size: 0.75rem; letter-spacing: 0.1em; color: #86868b; font-weight: 700; }
+.detail-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.fare-text { color: #30d158; font-size: 1.5rem; font-weight: 800; }
+.divider { opacity: 0.1; margin: 25px 0; border-top: 1px solid #000; }
+
+/* --- Enhanced Driver Command Buttons --- */
+.btn-command {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 24px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-command:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    filter: brightness(1.1);
+}
+
+.btn-command .btn-content { text-align: left; }
+.btn-main-text { display: block; font-size: 1.2rem; font-weight: 800; }
+.btn-sub-text { font-size: 0.75rem; color: #a1a1a6; font-weight: 500; }
+.icon-circle { background: rgba(255,255,255,0.1); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+
+/* State Specific Indicators */
+.btn-pickup-mode { border-left: 6px solid #30d158; }
+.btn-reached-mode { border-left: 6px solid #ff3b30; }
+
+/* --- Interactive Fare Entry UI --- */
+.fare-card-ui { 
+    background: #fbfbfd; 
+    padding: 30px; 
+    border-radius: 30px; 
+    border: 1px solid #efeff4; 
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.fare-header { margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; }
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #30d158;
+}
+
+.fare-field { 
+    width: 100%;
+    height: 70px; 
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    padding: 0 20px 0 55px;
+    border-radius: 20px; 
+    border: 2px solid #d2d2d7;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.fare-field:focus {
+    border-color: #30d158;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(48, 209, 88, 0.1);
+}
+
+.btn-finalize {
+    width: 100%;
+    background: #30d158;
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* --- Rider Progress & Telemetry --- */
+.progress-bar-minimal { height: 8px; background: #f2f2f2; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+.progress-fill { height: 100%; background: #ff6b00; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.progress-fill.accepted { width: 33%; }
+.progress-fill.picked_up { width: 66%; }
+.progress-fill.reached_destination { width: 90%; }
+.progress-fill.completed { width: 100%; background: #30d158; }
+
+.progress-labels { display: flex; justify-content: space-between; padding: 0; list-style: none; }
+.progress-labels li { font-size: 0.65rem; font-weight: 800; color: #d2d2d7; text-transform: uppercase; }
+.progress-labels li.active { color: #000; }
+
+/* --- Animations & Radar --- */
+.animate-in { animation: slideUp 0.5s ease-out forwards; }
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.pulse-icon {
+    width: 12px; height: 12px; background: #30d158;
+    border-radius: 50%; margin-bottom: 10px;
+    box-shadow: 0 0 0 rgba(48, 209, 88, 0.4);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(48, 209, 88, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0); }
+}
+
+.icon-success {
+    width: 80px; height: 80px; background: #30d158; color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-size: 2.5rem;
+}
+
+.radar-circle {
+    position: absolute; top: 50%; left: 50%; width: 150px; height: 150px;
+    border: 1px solid #ff6b00; border-radius: 50%; opacity: 0;
+    animation: radar 6s infinite; transform: translate(-50%, -50%);
+}
+
+.delay-1 { animation-delay: 2s; }
+
+@keyframes radar {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+}
+
+.badge-live {
+    background: #ff6b00;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+}
+
+.btn-receipt-link {
+    display: block;
+    text-align: center;
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 15px;
+    border-bottom: 2px solid #30d158;
+    padding-bottom: 4px;
+    transition: 0.3s;
+    width: fit-content;
+    margin: 15px auto 0;
+}
+
+.btn-receipt-link:hover { color: #30d158; }

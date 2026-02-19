@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/searching.css' %}">
+
+<div class="search-container">
+    
+    <div class="radar-box">
+        <div class="pulse-ring ring-1"></div>
+        <div class="pulse-ring ring-2"></div>
+        <div class="pulse-ring ring-3"></div>
+        <div class="radar-core">
+            <div class="core-glow"></div>
+        </div>
+    </div>
+
+    <div class="search-header">
+        <h1 class="search-title">Locating <span class="accent-text">Drivers</span></h1>
+        <p class="search-subtitle">Matching your request with the nearest verified partner...</p>
+    </div>
+
+    <div class="logistics-card">
+        <div class="card-header">
+            <span class="label">ESTIMATED VALUATION</span>
+            <span class="value">₹{{ ride.estimated_fare }}</span>
+        </div>
+        
+        <div class="path-visual">
+            <div class="path-markers">
+                <div class="marker-top"></div>
+                <div class="marker-line"></div>
+                <div class="marker-bottom"></div>
+            </div>
+            <div class="path-details">
+                <div class="detail-item">
+                    <small>PICKUP POINT</small>
+                    <p>{{ ride.pickup_location }}</p>
+                </div>
+                <div class="detail-item">
+                    <small>DESTINATION</small>
+                    <p>{{ ride.drop_location }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="safety-tag">
+        <span class="shield-icon">🛡️</span> Encrypted & Verified
+    </div>
+</div>
+
+<script>
+    // Reloads every 4 seconds to check database state change via ride_searching view
+    setTimeout(function() {
+        location.reload();
+    }, 4000);
+</script>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+/* dashboard_pro.css - Velocify Workspace FOUNDATION */
+
+.pro-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Typography & Accents */
+.pro-title { font-size: 2.5rem; font-weight: 800; color: #000; letter-spacing: -0.04em; }
+.accent-text {
+    background: linear-gradient(135deg, #ff6b00 0%, #ff3b30 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.badge-role { background: #000; color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; }
+
+/* KPI Grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.kpi-card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+.dark-card { background: #000; color: #fff; }
+.kpi-label { font-size: 0.65rem; font-weight: 800; color: #86868b; text-transform: uppercase; }
+.kpi-value { font-size: 2rem; font-weight: 800; margin-top: 10px; }
+.unit { font-size: 0.9rem; color: #86868b; }
+.status-glow { color: #30d158; text-shadow: 0 0 10px rgba(48,209,88,0.4); }
+
+/* Interactive Ride Button */
+.btn-interactive-ride {
+    position: relative;
+    display: block;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    padding: 18px;
+    border-radius: 15px;
+    font-weight: 700;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+.btn-interactive-ride:hover { transform: translateY(-3px); color: #fff; }
+.btn-content { position: relative; z-index: 2; display: flex; justify-content: center; gap: 10px; }
+.btn-shine {
+    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,107,0,0.4), transparent);
+    transition: 0.6s;
+}
+.btn-interactive-ride:hover .btn-shine { left: 100%; }
+
+/* Table & Portals */
+.portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; }
+.portal-card { background: #fff; padding: 35px; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
+.portal-title { font-weight: 800; font-size: 1.4rem; }
+.portal-desc { color: #6e6e73; font-size: 0.9rem; margin-bottom: 25px; }
+
+.pro-table-wrapper { background: #fff; border-radius: 15px; overflow: hidden; border: 1px solid #f2f2f2; }
+.pro-table { width: 100%; border-collapse: collapse; }
+.pro-table th { background: #fbfbfd; padding: 15px; font-size: 0.7rem; color: #86868b; text-align: left; }
+.pro-table td { padding: 15px; border-top: 1px solid #f2f2f2; font-size: 0.9rem; }
+
+.btn-approve { background: #30d158; color: #fff; padding: 6px 15px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.75rem; }
+.btn-pro-solid { background: #000; color: #fff; display: block; text-align: center; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: 700; }
+
+/* Updated Welcome Heading */
+.pro-welcome-title {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: #000;
+    letter-spacing: -0.06em;
+    margin-bottom: 10px;
+}
+
+.status-strip {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.connection-status {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #86868b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.05em;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #30d158;
+    border-radius: 50%;
+    display: inline-block;
+    animation: status-pulse 2s infinite;
+}
+
+@keyframes status-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(48, 209, 88, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(48, 209, 88, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(48, 209, 88, 0); }
+}
+
+/* Ensure the portal cards and other elements stay responsive */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}

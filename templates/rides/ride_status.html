@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow p-4 text-center">
+            <h2 class="text-primary mb-3">Ride Status: {{ ride.get_status_display }}</h2>
+            
+            <div class="alert {% if ride.status == 'completed' %}alert-success{% else %}alert-info{% endif %}">
+                <strong>Booking #{{ ride.id }}</strong>
+            </div>
+
+            <div class="text-start mb-4">
+                <p><strong>Pickup:</strong> {{ ride.pickup_location }}</p>
+                <p><strong>Drop-off:</strong> {{ ride.drop_location }}</p>
+                <p><strong>Vehicle:</strong> {{ ride.vehicle_type|capfirst }}</p>
+                <p><strong>Fare:</strong> ₹{{ ride.estimated_fare }}</p>
+            </div>
+
+            <hr>
+
+            {% if user == ride.driver %}
+                {% if ride.status == 'accepted' %}
+                    <a href="{% url 'start_ride' ride.id %}" class="btn btn-primary btn-lg w-100">Start Trip</a>
+                {% elif ride.status == 'on_trip' %}
+                    <a href="{% url 'complete_ride' ride.id %}" class="btn btn-success btn-lg w-100">Complete Trip</a>
+                {% endif %}
+            {% endif %}
+
+            {% if user == ride.rider and ride.status == 'completed' %}
+                <div class="alert alert-success">Trip Finished! Thank you for riding.</div>
+                <a href="#" class="btn btn-outline-primary w-100">Download Invoice</a>
+            {% endif %}
+
+            <a href="{% url 'dashboard' %}" class="btn btn-link mt-3 text-decoration-none">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

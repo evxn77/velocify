@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="apple-card p-5" style="background: #fff; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
+                <h2 class="fw-bold mb-4">Where to <span class="accent-text">Go?</span></h2>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted">PICKUP LOCATION</label>
+                        <input type="text" name="pickup" class="form-control pro-input" placeholder="Current location" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted">DESTINATION</label>
+                        <input type="text" name="drop" class="form-control pro-input" placeholder="Enter destination" required>
+                    </div>
+
+                    <div class="d-grid mt-5">
+                        <button type="submit" class="btn-pro-exit py-3">Find a Ride</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pro-input {
+        border: 2px solid #f2f2f2;
+        border-radius: 12px;
+        padding: 12px 15px;
+        font-weight: 600;
+    }
+    .pro-input:focus {
+        border-color: #ff6b00;
+        box-shadow: none;
+    }
+</style>
+{% endblock %}

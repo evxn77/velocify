@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .invoice-container { padding: 60px 20px; max-width: 800px; margin: 0 auto; }
+    .invoice-card { 
+        background: #fff; border-radius: 40px; padding: 50px; 
+        box-shadow: 0 40px 80px rgba(0,0,0,0.08); position: relative; overflow: hidden;
+    }
+    .invoice-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+    .brand-logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; }
+    .status-stamp { 
+        background: #30d158; color: white; padding: 8px 20px; 
+        border-radius: 100px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
+    }
+    .bill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+    .bill-item label { display: block; font-size: 0.7rem; font-weight: 800; color: #86868b; text-transform: uppercase; margin-bottom: 5px; }
+    .bill-item p { font-size: 1rem; font-weight: 600; color: #1d1d1f; margin: 0; }
+
+    .fare-breakdown { background: #fbfbfd; border-radius: 25px; padding: 30px; margin-bottom: 40px; }
+    .fare-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+    .fare-row.total { margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e5e7; }
+    .fare-row.total span { font-size: 1.5rem; font-weight: 800; }
+
+    .thank-you-note { text-align: center; color: #86868b; font-size: 0.9rem; }
+    .btn-print { 
+        display: block; width: 100%; text-align: center; background: #000; color: #fff; 
+        padding: 18px; border-radius: 18px; text-decoration: none; font-weight: 700; margin-top: 30px;
+        transition: transform 0.3s ease;
+    }
+    .btn-print:hover { transform: translateY(-3px); color: #fff; }
+
+    @media print { .btn-print, nav { display: none; } .invoice-card { box-shadow: none; border: 1px solid #eee; } }
+</style>
+
+<div class="invoice-container">
+    <div class="invoice-card">
+        <header class="invoice-header">
+            <div class="brand-logo">VELOCIFY<span class="text-primary">.</span></div>
+            <div class="status-stamp">Paid</div>
+        </header>
+
+        <div class="bill-grid">
+            <div class="bill-item">
+                <label>Passenger</label>
+                <p>{{ ride.rider.username }}</p>
+            </div>
+            <div class="bill-item">
+                <label>Driver</label>
+                <p>{{ ride.driver.username }}</p>
+            </div>
+            <div class="bill-item">
+                <label>Pickup</label>
+                <p>{{ ride.pickup_location }}</p>
+            </div>
+            <div class="bill-item">
+                <label>Drop-off</label>
+                <p>{{ ride.drop_location }}</p>
+            </div>
+            <div class="bill-item">
+                <label>Date</label>
+                <p>{{ ride.created_at|date:"D, d M Y" }}</p>
+            </div>
+            <div class="bill-item">
+                <label>Transaction ID</label>
+                <p>#VEL-{{ ride.id }}TRX</p>
+            </div>
+        </div>
+
+        <div class="fare-breakdown">
+            <div class="fare-row">
+                <span>Base Fare</span>
+                <span>₹50.00</span>
+            </div>
+            <div class="fare-row">
+                <span>Distance Charges</span>
+                <span>₹{{ ride.estimated_fare|add:"-50" }}</span>
+            </div>
+            <div class="fare-row total">
+                <span>Total Amount</span>
+                <span>₹{{ ride.amount }}</span>
+            </div>
+        </div>
+
+        <div class="thank-you-note">
+            <p>Thank you for choosing Velocify Titanium Services.</p>
+        </div>
+
+        <a href="javascript:window.print()" class="btn-print">Download PDF Receipt</a>
+        <a href="{% url 'dashboard' %}" class="btn text-center d-block mt-3 text-muted" style="font-weight:600; text-decoration:none;">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}
